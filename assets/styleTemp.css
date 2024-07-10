@@ -1,0 +1,216 @@
+:root {
+    --evergreen: #005e60;
+    --urgencygreen: #c8ff08;
+    --day: #ffffff;
+    --night: #212121;
+    --font-family: 'Inter-Regular', sans-serif;
+    --green: #42db04;
+    --skyblue: #2196F3;
+    --cherryred: #F44336;
+    --hover: #45a049;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: var(--font-family);
+    background: var(--day);
+}
+
+body.with-background {
+    width:100%;
+    height:100%;
+    /*background: url('/images/png/FertigungNeu.png') no-repeat center center fixed;*/
+    background-size: contain;
+}
+
+.all {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.chart-and-table {
+    display: flex;
+    gap: 20px;
+}
+
+.chart-container {
+    position: relative;
+    margin: auto;
+    height: 60vh;
+    width: 60vw;
+}
+
+canvas {
+    background-color: var(--day);
+    border: 1px solid var(--evergreen);
+    border-radius: 8px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.sensor-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.sensor-table th, .sensor-table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: center;
+}
+
+.sensor-table th {
+    background-color: #f2f2f2;
+    color: #333;
+}
+
+.sensor-table tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.sensor-table tr:hover {
+    background-color: #f2f2f2;
+}
+
+.sensor-title {
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+.button {
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border: none;
+    color: var(--day);
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+    font-family: inherit;
+    background-color: var(--green);
+}
+
+.back-button, .forward-button, .count-button, .otherButton, .exportButton {
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border: none;
+    background-color: var(--evergreen);
+    color: var(--urgencygreen);
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+    font-family: inherit;
+    text-decoration: none;
+}
+
+.exportButton {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+}
+
+.button:hover, .back-button:hover, .back-button:hover, .forward-button:hover, .otherButton:hover, .count-button:hover, .exportButton:hover {
+    background-color: var(--hover);
+}
+
+.back-button {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    text-decoration: none;
+}
+
+.hide-buttons {
+    display: none;
+}
+
+.button {
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border: none;
+    color: var(--day);
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+    font-family: inherit;
+}
+
+.buttonBlue {
+    background-color: var(--skyblue);
+}
+
+.buttonGreen {
+    background-color: var(--green);
+}
+
+.buttonRed {
+    background-color: var(--cherryred);
+}
+
+.count-button {
+    position: fixed;
+    bottom: 20px;
+    left: 45%;
+    text-decoration: none;
+}
+
+#login {
+    background: white;
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    width: 300px;
+}
+
+#login-form h1 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.form-control {
+    display: block;
+    width: 92.5%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+#signin {
+    background-color: var(--evergreen);
+    color: var(--urgencygreen);
+    border: none;
+    padding: 10px;
+    width: 100%;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+#signin:hover {
+    background-color: var(--hover);
+}
+
+.alert {
+    padding: 10px;
+    color: var(--day);
+    background-color: var(--cherryred);
+    border-radius: 5px;
+    margin-bottom: 20px;
+}
+
+html {
+    height: 100%;
+}
