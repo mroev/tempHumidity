@@ -63,36 +63,62 @@
     </div>
     <a href="mainTemp.php" class="back-button">back</a>
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const canvas = document.getElementById('tempChart');
-            canvas.width = 800;
-            canvas.height = 400;
-            const ctx = canvas.getContext('2d');
-            const tempChart = new Chart(ctx, {
-                type: 'line',
-                data: {
-                    labels: <?php echo json_encode(array_reverse($timestamps)); ?>,
-                    datasets: [{
-                        label: 'Temperatur (°C)',
-                        data: <?php echo json_encode(array_reverse($temps)); ?>,
-                        borderColor: 'red',
-                        borderWidth: 1
-                    }, {
-                        label: 'Luftfeuchtigkeit (%)',
-                        data: <?php echo json_encode(array_reverse($humidities)); ?>,
-                        borderColor: 'blue',
-                        borderWidth: 1
-                    }]
-                },
-                options: {
-                    scales: {
-                        y: {
-                            beginAtZero: true
-                        }
-                    }
+document.addEventListener('DOMContentLoaded', function() {
+    const canvas = document.getElementById('tempChart');
+    canvas.width = 800;
+    canvas.height = 400;
+    const ctx = canvas.getContext('2d');
+    const tempChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: <?php echo json_encode(array_reverse($timestamps)); ?>,
+            datasets: [{
+                label: 'Temperatur (°C)',
+                data: <?php echo json_encode(array_reverse($temps)); ?>,
+                borderColor: 'red',
+                backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                borderWidth: 1
+            }, {
+                label: 'Luftfeuchtigkeit (%)',
+                data: <?php echo json_encode(array_reverse($humidities)); ?>,
+                borderColor: 'blue',
+                backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
                 }
-            });
-        });
-    </script>
+            }
+        }
+    });
+
+    canvas.addEventListener('click', function() {
+        if (!document.fullscreenElement) {
+            if (canvas.requestFullscreen) {
+                canvas.requestFullscreen();
+            } else if (canvas.mozRequestFullScreen) { /* Firefox */
+                canvas.mozRequestFullScreen();
+            } else if (canvas.webkitRequestFullscreen) { /* Chrome, Safari and Opera */
+                canvas.webkitRequestFullscreen();
+            } else if (canvas.msRequestFullscreen) { /* IE/Edge */
+                canvas.msRequestFullscreen();
+            }
+        } else {
+            if (document.exitFullscreen) {
+                document.exitFullscreen();
+            } else if (document.mozCancelFullScreen) { /* Firefox */
+                document.mozCancelFullScreen();
+            } else if (document.webkitExitFullscreen) { /* Chrome, Safari and Opera */
+                document.webkitExitFullscreen();
+            } else if (document.msExitFullscreen) { /* IE/Edge */
+                document.msExitFullscreen();
+            }
+        }
+    });
+});
+</script>
 </body>
 </html>
