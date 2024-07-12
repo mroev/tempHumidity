@@ -43,10 +43,29 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <form id="login-form" method="post" action="">
             <h1>PLEASE SIGN IN</h1>
             <input class="form-control" type="text" name="user" placeholder="Username" required>
-            <input class="form-control" type="password" name="password" placeholder="Password" required>
+            <div class="password-container">
+                <input class="form-control" type="password" name="password" id="password" placeholder="Password" required>
+                <span class="password-toggle" onclick="togglePassword()">
+                    <img id="toggleIcon" src="images/png/close-eye.png" alt="Toggle Password">
+                </span>
+            </div>
             <input id="signin" class="otherButton" type="submit" value="Sign In">
         </form>
     </div>
     <a href="mainTemp.php" class="back-button">back</a>
+
+    <script>
+    function togglePassword() {
+        var passwordInput = document.getElementById("password");
+        var toggleIcon = document.getElementById("toggleIcon");
+        if (passwordInput.type === "password") {
+            passwordInput.type = "text";
+            toggleIcon.src = "images/png/open-eye.png";
+        } else {
+            passwordInput.type = "password";
+            toggleIcon.src = "images/png/close-eye.png";
+        }
+    }
+    </script>
 </body>
 </html>

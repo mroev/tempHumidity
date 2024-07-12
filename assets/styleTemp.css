@@ -21,6 +21,64 @@ body {
     background: var(--day);
 }
 
+#login {
+    background: white;
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    width: 300px;
+}
+
+.form-control {
+    display: block;
+    width: calc(100% - 40px);
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    position: relative;
+}
+
+.password-container {
+    position: relative;
+}
+
+.password-toggle {
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    cursor: pointer;
+}
+
+.password-toggle img {
+    width: 20px;
+    height: 20px;
+}
+
+#signin {
+    background-color: var(--evergreen);
+    color: var(--urgencygreen);
+    border: none;
+    padding: 10px;
+    width: 100%;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+#signin:hover {
+    background-color: var(--hover);
+}
+
+.alert {
+    padding: 10px;
+    color: var(--day);
+    background-color: var(--cherryred);
+    border-radius: 5px;
+    margin-bottom: 20px;
+}
+
 body.with-background {
     width:100%;
     height:100%;
@@ -87,6 +145,16 @@ canvas {
 .sensor-title {
     font-size: 24px;
     margin-bottom: 10px;
+}
+
+#detailsArea {
+    position: absolute;
+    height: 100%;
+    width: 30%;
+    overflow-y: auto;
+    display: none;
+    background-color: var(--day);
+    z-index: 100;
 }
 
 .button {

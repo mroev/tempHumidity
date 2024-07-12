@@ -4,12 +4,10 @@
     <meta charset="UTF-8">
     <title>Button Positions</title>
     <link rel="stylesheet" href="assets/styleTemp.css">
-    <link rel="icon" href="<?php echo $faviconPath; ?>" type="image/x-icon">
 </head>
 <a href="mainTemp.php" class="back-button">back</a>
 <body>
 <?php
-$faviconPath = "images/png/logo.png";
 session_start();
 if (isset($_SESSION['loggedIn']) && $_SESSION['loggedIn'] === true) {
 include 'backend/databaseTemperature.php';

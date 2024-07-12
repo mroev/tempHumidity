@@ -6,7 +6,7 @@
     <title>Temp Values</title>
     <link rel="stylesheet" href="assets/styleTemp.css">
     <link rel="icon" href="images/png/logo.png" type="image/x-icon">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="/backend/chart.js"></script>
     <script>
         function exportToCSV(sensorId) {
             window.location.href = 'export.php?sensor=' + sensorId;
