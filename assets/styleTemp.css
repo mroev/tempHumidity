@@ -19,6 +19,7 @@ body {
     align-items: center;
     font-family: var(--font-family);
     background: var(--day);
+    overflow: hidden;
 }
 
 #login {
