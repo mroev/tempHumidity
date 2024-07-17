@@ -49,9 +49,11 @@
             const x = event.clientX;
             const y = event.clientY;
 
+            // Set the values in the form
             document.getElementById('pos_x').value = x;
             document.getElementById('pos_y').value = y;
 
+            // Submit the form
             document.getElementById('positionForm').submit();
         }
     </script>
