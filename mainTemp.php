@@ -8,6 +8,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['dId'])) {
     $posY = isset($_POST['pos_y']) ? $_POST['pos_y'] : null;
 
     if ($posX !== null && $posY !== null) {
+        // Update-Abfrage ausführen
         $query = "UPDATE buttonposition SET pos_x = :pos_x, pos_y = :pos_y WHERE device_ID = :device_ID";
         $stmt = $pdoTemp->prepare($query);
         $stmt->bindParam(':pos_x', $posX, PDO::PARAM_INT);
@@ -15,15 +16,17 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['dId'])) {
         $stmt->bindParam(':device_ID', $deviceId, PDO::PARAM_STR);
 
         if ($stmt->execute()) {
+            // Successful update
         }
     }
 }
 
 $temperatures = [];
+$device_ids = [];
 
+// Retrieve device IDs
 $deviceQuery = "SELECT DISTINCT device_id FROM temphumidity";
 $deviceStmt = $pdoTemp->prepare($deviceQuery);
-$device_ids = [];
 
 if ($deviceStmt->execute()) {
     while ($row = $deviceStmt->fetch(PDO::FETCH_ASSOC)) {
@@ -31,6 +34,7 @@ if ($deviceStmt->execute()) {
     }
 }
 
+// Retrieve devices without position count
 $missingPosQuery = "SELECT COUNT(*) as count FROM buttonposition WHERE pos_x IS NULL OR pos_y IS NULL";
 $missingPosStmt = $pdoTemp->prepare($missingPosQuery);
 $missingPosCount = 0;
@@ -40,6 +44,9 @@ if ($missingPosStmt->execute()) {
     $missingPosCount = $row['count'];
 }
 
+// Retrieve temperatures and calculate average
+$totalTemp = 0;
+$tempCount = 0;
 
 foreach ($device_ids as $device_id) {
     $query = "SELECT temp FROM temphumidity WHERE device_id = :device_id ORDER BY stamp DESC LIMIT 1";
@@ -48,6 +55,11 @@ foreach ($device_ids as $device_id) {
     if ($statement->execute()) {
         $result = $statement->fetch(PDO::FETCH_ASSOC);
         $temp = $result ? $result['temp'] : 'N/A';
+
+        if ($temp !== 'N/A') {
+            $totalTemp += $temp;
+            $tempCount++;
+        }
 
         if ($temp >= 25) {
             $colorClass = 'buttonRed';
@@ -68,6 +80,10 @@ foreach ($device_ids as $device_id) {
     $insertStmt->execute();
 }
 
+// Calculate average temperature
+$averageTemp = $tempCount > 0 ? $totalTemp / $tempCount : 'N/A';
+
+// Positionen der Buttons aus der Datenbank abrufen
 $buttonPositions = [];
 $positionQuery = "SELECT device_ID, pos_x, pos_y FROM buttonposition";
 $positionStmt = $pdoTemp->prepare($positionQuery);
@@ -90,7 +106,7 @@ if ($positionStmt->execute()) {
 </head>
 <body class="with-background" onclick="showClickPosition(event)">
     <div class="all">
-    <img src="/images/png/FertigungNeu.png" style="position : absolute; top: 0;">
+    <img src="/images/png/FertigungNeu.png" style="position: absolute; top: 0;">
 
     <div class="container">
         <?php foreach ($temperatures as $device_id => $data): ?>
@@ -105,6 +121,10 @@ if ($positionStmt->execute()) {
                 </form>
             <?php endif; ?>
         <?php endforeach; ?>
+        
+        <button class="button buttonAverage" style="position: absolute; left: 20px; bottom: 20px;">
+            <?php echo htmlspecialchars("current average: " . $averageTemp); ?>
+        </button>
     </div>
 
     <form id="positionForm" method="POST">
@@ -130,7 +150,7 @@ if ($positionStmt->execute()) {
             }
         }
     </script>
-        <a href="positionMain.php" class="count-button">Devices without position: <?php echo $missingPosCount; ?></a>
+    <a href="positionMain.php" class="count-button">Devices without position: <?php echo $missingPosCount; ?></a>
     </div>
 </body>
 </html>
